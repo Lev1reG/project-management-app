@@ -17,7 +17,7 @@ class ProjectController extends Controller
         $query = Project::query();
 
         $sortFields = request("sort_field", 'due_date');
-        $sortDirections = request("sort_direction", 'desc');
+        $sortDirections = request("sort_direction", 'asc');
 
         if (request("name")) {
             $query->where("name", "like", "%" . request("name") . "%");
