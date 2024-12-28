@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Project;
+use App\Http\Resources\TaskResource;
+use App\Http\Resources\ProjectResource;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
-use App\Http\Resources\ProjectResource;
-use App\Models\Project;
 
 class ProjectController extends Controller
 {
@@ -57,7 +58,26 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        //
+        $query = $project->tasks();
+
+        $sortFields = request("sort_field", 'due_date');
+        $sortDirections = request("sort_direction", 'asc');
+
+        if (request("name")) {
+            $query->where("name", "like", "%" . request("name") . "%");
+        }
+
+        if (request("status")) {
+            $query->where("status", request("status"));
+        }
+
+        $tasks = $query->orderBy($sortFields, $sortDirections)
+            ->paginate(10);
+        return inertia("Projects/Show", [
+            "project" => new ProjectResource($project),
+            "tasks" => TaskResource::collection($tasks),
+            "queryParams" => request()->query() ?: null,
+        ]);
     }
 
     /**
