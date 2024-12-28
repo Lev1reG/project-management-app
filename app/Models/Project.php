@@ -12,6 +12,8 @@ class Project extends Model
     /** @use HasFactory<\Database\Factories\ProjectFactory> */
     use HasFactory;
 
+    protected $with = ['createdBy', 'updatedBy'];
+
     public function tasks()
     {
         return $this->hasMany(Task::class);
