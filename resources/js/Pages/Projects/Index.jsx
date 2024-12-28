@@ -4,8 +4,6 @@ import TableHeading from "@/Components/TableHeading";
 import TextInput from "@/Components/TextInput";
 import { PROJECT_STATUS_CLASS_MAP, PROJECT_STATUS_TEXT_MAP } from "@/constants";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Tab } from "@headlessui/react";
-import { ChevronUpIcon, ChevronDownIcon } from "@heroicons/react/16/solid";
 import { Head, Link, router } from "@inertiajs/react";
 
 export default function Index({ auth, projects, queryParams = null }) {
