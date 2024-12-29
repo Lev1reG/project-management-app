@@ -175,7 +175,7 @@ export default function TasksTable({
                                         {task.name}
                                     </Link>
                                 </th>
-                                <td className="px-3 py-2">
+                                <td className="px-3 py-2 text-nowrap">
                                     <span
                                         className={
                                             "px-3 py-1 rounded text-white " +
