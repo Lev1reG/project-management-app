@@ -41,6 +41,13 @@ export default function TasksTable({
 
         router.get(route("task.index"), queryParams);
     };
+
+    const deleteTask = (task) => {
+        if (!window.confirm("Are you sure you want to delete this task?")) {
+            return;
+        }
+        router.delete(route("task.destroy", task.id));
+    };
     return (
         <>
             <div className="overflow-auto">
@@ -155,7 +162,7 @@ export default function TasksTable({
                                     <img
                                         src={task.image_path}
                                         style={{ width: 60 }}
-                                        alt="Project Image"
+                                        alt="Task Image"
                                     />
                                 </td>
                                 {!hideProjectColumn && (
@@ -183,19 +190,19 @@ export default function TasksTable({
                                 <td className="px-3 py-2">
                                     {task.created_by.name}
                                 </td>
-                                <td className="px-3 py-2 text-right">
+                                <td className="px-3 py-2 text-nowrap">
                                     <Link
                                         className="font-medium text-blue-600 dark:text-blue-500 hover:underline mx-1"
                                         href={route("task.edit", task.id)}
                                     >
                                         Edit
                                     </Link>
-                                    <Link
+                                    <button
+                                        onClick={(e) => deleteTask(task)}
                                         className="font-medium text-red-600 dark:text-red-500 hover:underline mx-1"
-                                        href={route("task.destroy", task.id)}
                                     >
                                         Delete
-                                    </Link>
+                                    </button>
                                 </td>
                             </tr>
                         ))}
