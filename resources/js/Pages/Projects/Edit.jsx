@@ -9,8 +9,8 @@ import { Head, Link, useForm } from "@inertiajs/react";
 export default function Edit({ auth, project }) {
     const { data, setData, post, errors } = useForm({
         image: "",
-        name: project.name,
-        status: project.status,
+        name: project.name || "",
+        status: project.status || "",
         description: project.description || "",
         due_date: project.due_date || "",
         _method: "PUT",

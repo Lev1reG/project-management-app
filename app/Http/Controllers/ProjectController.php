@@ -137,6 +137,6 @@ class ProjectController extends Controller
         }
 
         return to_route('project.index')
-            ->with('success', 'Project ' . $name . ' was deleted');
+            ->with('success', 'Project "' . $name . '" was deleted');
     }
 }
