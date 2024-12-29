@@ -6,19 +6,20 @@ import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
 
-export default function Create({ auth }) {
+export default function Edit({ auth, project }) {
     const { data, setData, post, errors } = useForm({
         image: "",
-        name: "",
-        status: "",
-        description: "",
-        due_date: "",
+        name: project.name,
+        status: project.status,
+        description: project.description || "",
+        due_date: project.due_date || "",
+        _method: "PUT",
     });
 
     const onSubmit = (e) => {
         e.preventDefault();
 
-        post(route("project.store"));
+        post(route("project.update", project.id));
     };
 
     return (
@@ -27,12 +28,12 @@ export default function Create({ auth }) {
             header={
                 <div className="flex justify-between items-center">
                     <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                        Create new Project
+                        Edit project "{project.name}"
                     </h2>
                 </div>
             }
         >
-            <Head title="Create Project" />
+            <Head title="Edit Project" />
 
             <div className="py-12">
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -42,6 +43,15 @@ export default function Create({ auth }) {
                             className="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg"
                             action=""
                         >
+                            {project.image_path && (
+                                <div className="mb-4">
+                                    <img
+                                        src={project.image_path}
+                                        className="w-64"
+                                        alt="Project Image"
+                                    />
+                                </div>
+                            )}
                             <div>
                                 <InputLabel
                                     htmlFor="project_image_path"
